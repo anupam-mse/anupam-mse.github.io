@@ -1,0 +1,931 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Anupam Halder — electrochemist working on nickel catalysts for green hydrogen. Research, papers, music, food chemistry, art and writing."><style>:root{color-scheme:dark;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style></head><body><!--site-start--><title>Anupam Halder</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a night lab with a menu. Home is the trailer; each room behind the hamburger is one chapter. Research rooms first and largest. */
+:root{
+  --void:#061212; --deep:#0B1C1C; --panel:#102625; --line:#1F3A39;
+  --fg:#E6F0EE; --dim:#8BA3A0;
+  --teal:#2FB5B0; --orange:#F39F59; --blue:#5AA3D6; --rose:#FB7A7A; --sage:#A9C49A; --sand:#E3C886;
+  --wide:"Archivo", "Arial Narrow", system-ui, sans-serif;
+  --serif:"Instrument Serif", Georgia, serif;
+  --mono:"JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--void)}
+body{background:var(--void);color:var(--fg);font-family:var(--wide);font-size:16px;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--void)}
+.g{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.in{max-width:1180px;margin:0 auto}
+a{color:var(--teal)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.mono{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+h1,h2,h3{margin:0;font-weight:800;text-wrap:balance}
+p{margin:0}
+button{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--fg);border:1px solid var(--line);padding:10px 14px;cursor:pointer;transition:background .2s,border-color .2s}
+button:hover{border-color:var(--c,var(--teal))}
+button[aria-pressed="true"]{background:var(--c,var(--teal));color:var(--void);border-color:var(--c,var(--teal))}
+
+/* top bar + menu */
+.bar{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:50;background:color-mix(in srgb,var(--void) 82%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .in{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px}
+.brand{color:var(--fg);text-decoration:none;font-stretch:125%;font-weight:800;font-size:15px;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.brand i{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal)}
+.where{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-left:auto;margin-right:14px}
+.burger{display:flex;align-items:center;gap:10px;border:1px solid var(--line);padding:9px 12px}
+.burger .lines{width:20px;height:12px;position:relative}
+.burger .lines::before,.burger .lines::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:var(--fg);transition:transform .3s,top .3s}
+.burger .lines::before{top:2px}.burger .lines::after{top:9px}
+.burger[aria-expanded="true"] .lines::before{top:5px;transform:rotate(45deg)}
+.burger[aria-expanded="true"] .lines::after{top:5px;transform:rotate(-45deg)}
+
+.menu{position:fixed;inset:0;z-index:45;background:var(--void);overflow-y:auto;padding-top:calc(env(safe-area-inset-top,0px) + 80px);padding-bottom:calc(env(safe-area-inset-bottom,0px) + 40px)}
+.menu .in{display:grid;grid-template-columns:1.6fr 1fr;gap:56px}
+.menu .in > *{min-width:0}
+.menu ol{list-style:none;margin:18px 0 0;padding:0}
+.menu li a{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:baseline;padding-block:12px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none;transition:color .2s,padding .3s}
+.menu li a:hover,.menu li a[aria-current="page"]{color:var(--c);padding-left:8px}
+.menu li a .n{font-family:var(--mono);font-size:12px;color:var(--c)}
+.menu li a .t{font-stretch:120%;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;line-height:1}
+.menu .big .t{font-size:clamp(30px,4.6vw,56px)}
+.menu .small .t{font-size:clamp(22px,2.6vw,30px)}
+.menu li a .d{font-family:var(--mono);font-size:11px;color:var(--dim);text-align:right}
+.menu .foot{grid-column:1/-1;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px}
+
+main{padding-top:calc(env(safe-area-inset-top,0px) + 58px)}
+.view{animation:fade .5s ease both}
+@keyframes fade{from{transform:translateY(12px)}to{transform:none}}
+
+/* shared section pieces */
+.page{padding-block:80px 40px}
+.kicker{display:flex;gap:14px;align-items:center;margin-bottom:22px}
+.kicker::before{content:"";width:34px;height:1px;background:var(--c,var(--teal))}
+h2{font-stretch:125%;font-size:clamp(40px,7vw,96px);line-height:.92;letter-spacing:-.02em;text-transform:uppercase}
+h2 i,h1 i{font-family:var(--serif);font-weight:400;font-style:italic;text-transform:none;letter-spacing:0;font-stretch:100%;color:var(--c,var(--teal))}
+.intro{font-size:19px;color:var(--dim);max-width:38em;margin-top:24px}
+.next{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:90px;padding-block:28px 60px}
+.next a{text-decoration:none;color:var(--fg);display:grid;gap:4px}
+.next a b{font-stretch:120%;font-size:clamp(22px,3vw,34px);text-transform:uppercase;font-weight:800}
+.next a:last-child{text-align:right;margin-left:auto}
+.next a:hover b{color:var(--teal)}
+
+/* home */
+.hero{position:relative;height:clamp(560px,86vh,820px);overflow:hidden;background:radial-gradient(ellipse at 70% 40%,#0F2E2D 0%,var(--void) 65%);margin-top:calc(-1 * (env(safe-area-inset-top,0px) + 58px))}
+#stage{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero .over{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:40px;pointer-events:none}
+.hero h1{font-stretch:125%;font-weight:900;font-size:clamp(48px,11vw,160px);line-height:.86;letter-spacing:-.02em;text-transform:uppercase}
+.hero h1 span{display:block;animation:rise 1s cubic-bezier(.2,.8,.2,1) both}
+.hero h1 span+span{animation-delay:.1s;-webkit-text-stroke:1.5px var(--fg);color:transparent}
+@keyframes rise{from{transform:translateY(30%)}to{transform:none}}
+.hero .sub{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-top:24px}
+.hero .sub p{font-family:var(--serif);font-size:clamp(22px,2.6vw,32px);line-height:1.2;max-width:23em}
+.hero .sub em{color:var(--teal)}
+.hud{position:absolute;top:calc(env(safe-area-inset-top,0px) + 82px);left:0;right:0}
+.hud .in{display:flex;justify-content:flex-end}
+.readout{font-family:var(--mono);font-size:12px;line-height:1.9;color:var(--dim);border-left:1px solid var(--line);padding-left:14px;font-variant-numeric:tabular-nums;background:color-mix(in srgb,var(--void) 55%,transparent)}
+.readout b{color:var(--fg);font-weight:500;display:inline-block;min-width:6.5ch;text-align:right}
+.readout .live{color:var(--rose)}
+.readout .live::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--rose);margin-right:7px;animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.25}}
+
+.band{border-block:1px solid var(--line);overflow:hidden;background:var(--deep)}
+.track{display:flex;gap:56px;width:max-content;padding-block:16px;animation:slide 40s linear infinite}
+.track span{font-stretch:125%;font-weight:300;font-size:clamp(24px,3.6vw,40px);white-space:nowrap;color:var(--dim)}
+.track span b{font-weight:800;color:var(--fg)}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+.about{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;padding-block:90px 30px}
+.about > *{min-width:0}
+.about p.big{font-family:var(--serif);font-size:clamp(26px,3vw,40px);line-height:1.18}
+.about p.big em{color:var(--teal)}
+.about p.big b{font-weight:400;color:var(--orange);font-style:italic}
+.facts{display:grid;gap:0;border-top:1px solid var(--line)}
+.facts div{display:grid;grid-template-columns:120px 1fr;gap:14px;padding-block:13px;border-bottom:1px solid var(--line)}
+
+.split{display:grid;grid-template-columns:65fr 35fr;gap:16px;padding-block:50px}
+.split > *{min-width:0}
+.door{--c:var(--teal);display:flex;flex-direction:column;justify-content:space-between;gap:24px;padding:24px;border:1px solid var(--line);background:color-mix(in srgb,var(--c) 5%,var(--void));color:var(--fg);text-decoration:none;min-height:190px;transition:background .35s,border-color .35s,transform .35s cubic-bezier(.2,.8,.2,1);min-width:0}
+.door:hover{background:color-mix(in srgb,var(--c) 15%,var(--void));border-color:var(--c);transform:translateY(-4px)}
+.door .top{display:flex;justify-content:space-between;gap:10px}
+.door .top span:first-child{font-family:var(--mono);font-size:12px;color:var(--c)}
+.door h3{font-stretch:120%;font-size:clamp(26px,3.2vw,40px);line-height:.95;text-transform:uppercase;letter-spacing:-.01em}
+.door p{color:var(--dim);font-size:15px;margin-top:8px}
+.doors-r{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.doors-r .door:first-child{grid-column:1/-1;min-height:250px}
+.doors-r .door:first-child h3{font-size:clamp(34px,4.6vw,60px)}
+.doors-p{display:grid;gap:16px}
+.doors-p .door{min-height:0}
+.doors-p .door h3{font-size:clamp(22px,2.4vw,28px)}
+.colhead{display:flex;justify-content:space-between;margin-bottom:14px}
+
+/* interests */
+.ints{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:56px}
+.int{background:var(--void);padding:30px 26px;display:grid;gap:12px;align-content:start;min-width:0}
+.int .q{font-family:var(--serif);font-style:italic;font-size:clamp(26px,2.8vw,36px);line-height:1.12}
+.int p{color:var(--dim)}
+.int .num{font-family:var(--mono);font-size:30px;color:var(--c);font-variant-numeric:tabular-nums}
+.int .num small{font-size:12px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase;margin-left:10px}
+.energy{margin-top:56px;border:1px solid var(--line);background:var(--deep);padding:24px}
+.energy .row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.stack{display:flex;height:56px;width:100%;overflow:hidden}
+.stack div{display:flex;align-items:center;padding-left:10px;font-family:var(--mono);font-size:12px;color:var(--void);white-space:nowrap;overflow:hidden;transition:flex-grow .4s}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px}
+.legend span{display:flex;gap:8px;align-items:center}
+.legend i{width:10px;height:10px;display:inline-block}
+
+/* work */
+.projects{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:56px}
+.proj{--c:var(--teal);border:1px solid var(--line);padding:24px;display:grid;gap:12px;align-content:start;background:var(--void);transition:border-color .3s,background .3s;min-width:0}
+.proj:hover{border-color:var(--c);background:var(--deep)}
+.proj.feature{grid-column:1/-1;grid-template-columns:1fr 1fr;gap:32px}
+.proj .meta{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.st{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+.st::before{content:"●";margin-right:8px}
+.st.on{color:var(--orange)}.st.done{color:var(--teal)}.st.next{color:var(--blue)}.st.build{color:var(--rose)}
+.proj h3{font-stretch:115%;font-size:clamp(24px,2.6vw,32px);line-height:1;text-transform:uppercase;letter-spacing:-.01em}
+.proj p{color:var(--dim)}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tags span{font-family:var(--mono);font-size:11px;border:1px solid var(--line);padding:3px 8px}
+.proj canvas{width:100%;height:auto;aspect-ratio:4/3;display:block;background:var(--deep);border:1px solid var(--line);max-width:100%}
+.timeline{margin-top:70px;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--line)}
+.timeline div{padding:16px 14px 0 0;border-right:1px solid var(--line);display:grid;gap:6px;min-width:0}
+.timeline div:last-child{border-right:0}
+.timeline b{font-weight:600;font-size:15px}
+
+/* playground */
+.toy{margin-top:56px;border:1px solid var(--line);background:var(--deep);padding:24px;display:grid;grid-template-columns:1fr 320px;gap:32px}
+.toy > *{min-width:0}
+.toy h3{font-stretch:115%;font-size:clamp(24px,2.6vw,34px);text-transform:uppercase;line-height:1;grid-column:1/-1}
+.toy .what{grid-column:1/-1;color:var(--dim);max-width:44em;margin-top:-18px}
+.toy canvas{width:100%;height:auto;display:block;background:var(--void);border:1px solid var(--line);max-width:100%}
+.knobs{display:grid;gap:22px;align-content:start}
+.knob label{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.knob label b{font-family:var(--mono);font-weight:500;font-size:18px;color:var(--fg);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;margin-top:10px;accent-color:var(--c,var(--orange))}
+.out{border-top:1px solid var(--line);padding-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.out div{display:grid;gap:2px}
+.out b{font-family:var(--mono);font-size:22px;font-weight:500;font-variant-numeric:tabular-nums}
+.say{font-family:var(--serif);font-size:21px;line-height:1.25;grid-column:1/-1}
+.cap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:8px}
+
+/* papers */
+.pubs{list-style:none;margin:56px 0 0;padding:0;border-top:1px solid var(--line)}
+.pub{display:grid;grid-template-columns:150px 1fr auto;gap:28px;padding-block:22px;border-bottom:1px solid var(--line);align-items:baseline}
+.pub > *{min-width:0}
+.pub h3{font-weight:600;font-size:19px;line-height:1.35}
+.pub p{color:var(--dim);font-size:14.5px;margin-top:4px}
+.pub .role{font-family:var(--mono);font-size:11px;color:var(--dim)}
+.st.p{color:var(--teal)}.st.r{color:var(--blue)}.st.s{color:var(--orange)}.st.w{color:var(--dim)}
+
+/* music */
+.music{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start;margin-top:56px}
+.music > *{min-width:0}
+.scope{background:var(--deep);border:1px solid var(--line);padding:16px}
+.scope canvas{width:100%;height:auto;aspect-ratio:1/1;display:block;max-width:100%}
+.scope .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.ratio{font-family:var(--mono);font-size:44px;color:var(--blue);font-variant-numeric:tabular-nums;margin-top:6px}
+.fact h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3vw,40px);line-height:1.1;margin-top:14px}
+.fact p{color:var(--dim);margin-top:12px}
+.playlist{list-style:none;padding:0;margin:14px 0 0;border-top:1px solid var(--line)}
+.playlist li{display:grid;grid-template-columns:32px 1fr auto;gap:12px;padding-block:12px;border-bottom:1px solid var(--line);align-items:baseline}
+.playlist li span:first-child{font-family:var(--mono);color:var(--blue);font-size:12px}
+.ph{color:var(--dim);font-style:italic}
+
+/* food */
+.food{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:56px}
+.dish{background:var(--void);padding:26px 22px 24px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.dish .t{font-family:var(--mono);font-size:22px;color:var(--orange)}
+.dish h3{font-size:22px;line-height:1.15}
+.dish p{color:var(--dim);font-size:15px}
+.dish .rx{font-family:var(--mono);font-size:12px;margin-top:auto;padding-top:10px;border-top:1px dashed var(--line);overflow-wrap:anywhere}
+.ph-strip{margin-top:24px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.swatch{display:flex;height:22px;flex:1 1 260px;border:1px solid var(--line)}
+.swatch i{flex:1}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px;margin-top:56px}
+.canvasbox{grid-row:span 2;display:grid;gap:10px;align-content:start;min-width:0}
+.canvasbox canvas{width:100%;height:auto;aspect-ratio:4/5;display:block;background:#EDE6D8;cursor:pointer;max-width:100%}
+.canvasbox .row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.frame{margin:0;display:grid;gap:8px;min-width:0}
+.frame .f{aspect-ratio:1/1;border:10px solid #1A2B2A;outline:1px solid var(--line);position:relative;max-width:100%}
+.frame .f span,.shot .f span{position:absolute;left:10px;bottom:8px;font-family:var(--mono);font-size:10px;color:#fff;opacity:.85;letter-spacing:.1em}
+.frame figcaption,.shot figcaption{display:flex;justify-content:space-between;gap:8px}
+.frame b,.shot b{font-weight:600;font-size:14px}
+.reel{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:16px;margin-top:70px;scrollbar-color:var(--line) transparent}
+.shot{flex:0 0 clamp(220px,26vw,340px);scroll-snap-align:start;margin:0;display:grid;gap:10px}
+.shot .f{aspect-ratio:3/4;position:relative;overflow:hidden;max-width:100%}
+.shot:nth-child(even) .f{aspect-ratio:4/5;margin-top:40px}
+
+/* life */
+.lines{margin-top:70px;display:grid;gap:70px}
+.lines blockquote{margin:0;font-family:var(--serif);font-size:clamp(28px,4.4vw,58px);line-height:1.08;max-width:18em}
+.lines blockquote:nth-child(2){margin-left:auto;text-align:right;color:var(--sand)}
+.lines cite{display:block;margin-top:14px;font-style:normal}
+
+/* contact */
+.mail{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:36px}
+.mail code{font-family:var(--mono);font-size:clamp(15px,2vw,20px);border-bottom:1px solid var(--teal);padding-bottom:4px;user-select:all;overflow-wrap:anywhere}
+
+/* writing */
+.posts{display:grid;margin-top:56px;border-top:1px solid var(--line)}
+.post{display:grid;grid-template-columns:170px 1fr;gap:28px;padding-block:34px;border-bottom:1px solid var(--line)}
+.post > *{min-width:0}
+.post h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.4vw,44px);line-height:1.1}
+.post .body{color:var(--dim);margin-top:16px;max-width:62ch;display:grid;gap:14px;font-size:17px}
+.post .fields{display:grid;gap:10px}
+.post input,.post textarea{width:100%;background:var(--deep);color:var(--fg);border:1px solid var(--line);padding:10px 12px;font:16px var(--wide)}
+.post input.t{font-family:var(--serif);font-size:26px}
+.post textarea{min-height:220px;line-height:1.6;resize:vertical}
+.empty{color:var(--dim);padding-block:40px;font-family:var(--serif);font-size:26px}
+.add-post{margin-top:24px}
+
+/* edit mode */
+.editbar{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:55;display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;max-width:calc(100vw - 32px);background:var(--panel);border:1px solid var(--line);padding:8px;box-shadow:0 12px 32px rgba(0,0,0,.45)}
+.editbar .msg{font-family:var(--mono);font-size:11px;color:var(--dim);padding-inline:6px}
+.editbar .primary{background:var(--teal);color:var(--void);border-color:var(--teal)}
+body.editing [data-k]{outline:1px dashed color-mix(in srgb,var(--orange) 65%,transparent);outline-offset:3px;cursor:text}
+body.editing [data-k]:focus{outline:1px solid var(--orange);background:color-mix(in srgb,var(--orange) 10%,transparent)}
+.photo-tools{position:absolute;right:8px;bottom:8px;display:none;gap:6px;z-index:2}
+body.editing .photo-tools{display:flex}
+.photo-tools button{background:var(--void);font-size:10.5px;padding:7px 9px}
+.has-photo{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important}
+.has-photo > span{display:none}
+.add-shot{display:none}
+body.editing .add-shot{display:grid;place-items:center;flex:0 0 clamp(220px,26vw,340px);min-height:260px;border:1px dashed var(--line);font-size:13px}
+
+@media (max-width:860px){
+  .post{grid-template-columns:1fr;gap:8px}
+  .menu .in,.about,.split,.music,.toy,.proj.feature{grid-template-columns:1fr}
+  .ints,.projects,.food{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr 1fr}
+  .canvasbox{grid-column:1/-1;grid-row:auto}
+  .pub{grid-template-columns:1fr;gap:6px}
+  .timeline{grid-template-columns:1fr 1fr}
+  .timeline div{padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .where{display:none}
+  .hud .readout{font-size:10.5px}
+  .page{padding-block:56px 30px}
+}
+@media (max-width:480px){.doors-r{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.track,.hero h1 span,.readout .live::before,.view{animation:none}.door,.menu li a{transition:none}}
+</style>
+
+<header class="bar g"><div class="in">
+  <a class="brand" href="#home"><i></i>Anupam Halder</a>
+  <span class="where" id="where">Home</span>
+  <button class="burger" id="burger" aria-expanded="false" aria-controls="menu"><span class="lines"></span><span>Menu</span></button>
+</div></header>
+
+<nav class="menu g" id="menu" hidden aria-label="Site"><div class="in">
+  <div>
+    <span class="mono">Research · the work</span>
+    <ol class="big">
+      <li><a href="#home" style="--c:var(--teal)"><span class="n">00</span><span class="t">Home</span><span class="d">the trailer</span></a></li>
+      <li><a href="#interests" style="--c:var(--teal)"><span class="n">01</span><span class="t">What pulls me in</span><span class="d">questions</span></a></li>
+      <li><a href="#work" style="--c:var(--orange)"><span class="n">02</span><span class="t">What I'm building</span><span class="d">projects</span></a></li>
+      <li><a href="#playground" style="--c:var(--blue)"><span class="n">03</span><span class="t">Playground</span><span class="d">try the science</span></a></li>
+      <li><a href="#papers" style="--c:var(--rose)"><span class="n">04</span><span class="t">Papers</span><span class="d">the record</span></a></li>
+    </ol>
+  </div>
+  <div>
+    <span class="mono">Off the bench</span>
+    <ol class="small">
+      <li><a href="#music" style="--c:var(--blue)"><span class="n">05</span><span class="t">Music</span><span class="d">ratios</span></a></li>
+      <li><a href="#food" style="--c:var(--orange)"><span class="n">06</span><span class="t">Food chemistry</span><span class="d">kitchen lab</span></a></li>
+      <li><a href="#gallery" style="--c:var(--rose)"><span class="n">07</span><span class="t">Paintings &amp; photos</span><span class="d">colour</span></a></li>
+      <li><a href="#life" style="--c:var(--sage)"><span class="n">08</span><span class="t">Life</span><span class="d">a few lines</span></a></li>
+      <li><a href="#writing" style="--c:var(--sand)"><span class="n">09</span><span class="t">Writing</span><span class="d">write-ups</span></a></li>
+      <li><a href="#contact" style="--c:var(--teal)"><span class="n">10</span><span class="t">Say hello</span><span class="d">contact</span></a></li>
+    </ol>
+  </div>
+  <div class="foot"><span class="mono">IIT Kanpur ⟷ RIT, New York</span><span class="mono">Press Esc to close</span></div>
+</div></nav>
+
+<main>
+
+<!-- HOME -->
+<div class="view" id="v-home" data-name="Home">
+  <header class="hero">
+    <canvas id="stage" aria-label="A rotating nickel metal-organic framework lattice with gas bubbles rising from an electrode"></canvas>
+    <div class="hud g"><div class="in">
+      <div class="readout" aria-hidden="true">
+        <div class="live">LIVE · OER · 1 M KOH</div>
+        <div>E <b id="hE">1.520</b> V<sub>RHE</sub></div>
+        <div>j <b id="hJ">10.0</b> mA cm⁻²</div>
+        <div>bubbles <b id="hB">0</b> s⁻¹</div>
+      </div>
+    </div></div>
+    <div class="over g"><div class="in">
+      <h1><span>Anupam</span><span>Halder</span></h1>
+      <div class="sub"><p>I make nickel <em>split water</em>, watch it with X-rays, and spend the rest of my time on music, food, paint and photographs.</p><span class="mono">Electrochemist · PhD, IIT Kanpur</span></div>
+    </div></div>
+  </header>
+  <div class="band" aria-hidden="true"><div class="track">
+    <span><b>2H₂O → 2H₂ + O₂</b></span><span>operando XAS</span><span><b>Ni-MOF</b></span><span>flash sintering</span><span><b>B = 1000 mT</b></span><span>chai · Maillard · tadka</span><span><b>3 : 2</b></span><span>green hydrogen</span>
+    <span><b>2H₂O → 2H₂ + O₂</b></span><span>operando XAS</span><span><b>Ni-MOF</b></span><span>flash sintering</span><span><b>B = 1000 mT</b></span><span>chai · Maillard · tadka</span><span><b>3 : 2</b></span><span>green hydrogen</span>
+  </div></div>
+
+  <div class="g"><div class="in">
+    <div class="about">
+      <p class="big">Hydrogen from water is easy on paper and stubborn at the electrode. I try to make <em>cheap metals</em> do the hard part, and to prove what is actually happening on the surface. Away from the bench, I chase the same thing in music, food and colour: <b>why things work</b>.</p>
+      <div class="facts">
+        <div><span class="mono">Now</span><span>Visiting researcher, RIT, New York</span></div>
+        <div><span class="mono">Home lab</span><span>IIT Kanpur, India</span></div>
+        <div><span class="mono">Thesis</span><span>Ni-MOF electrocatalysts · April 2027</span></div>
+        <div><span class="mono">Tools</span><span>Synchrotron XAS, operando Raman, EIS</span></div>
+        <div><span class="mono">Next</span><span>CO₂ · N₂ · ML for catalyst design</span></div>
+      </div>
+    </div>
+
+    <div class="split">
+      <div>
+        <div class="colhead"><span class="mono">Research</span><span class="mono">65%</span></div>
+        <div class="doors-r">
+          <a class="door" href="#work" style="--c:var(--orange)"><div class="top"><span>02</span><span class="mono">projects</span></div><div><h3>What I'm building</h3><p>MOFs, flash-sintered oxides, catalysts made in a magnetic field, and a homemade operando cell.</p></div></a>
+          <a class="door" href="#interests" style="--c:var(--teal)"><div class="top"><span>01</span><span class="mono">questions</span></div><div><h3>What pulls me in</h3><p>The questions behind the work.</p></div></a>
+          <a class="door" href="#playground" style="--c:var(--blue)"><div class="top"><span>03</span><span class="mono">interactive</span></div><div><h3>Playground</h3><p>Be the catalyst. Make bubbles.</p></div></a>
+          <a class="door" href="#papers" style="--c:var(--rose)" ><div class="top"><span>04</span><span class="mono">record</span></div><div><h3>Papers</h3><p>Published, in review, coming.</p></div></a>
+        </div>
+      </div>
+      <div>
+        <div class="colhead"><span class="mono">Off the bench</span><span class="mono">35%</span></div>
+        <div class="doors-p">
+          <a class="door" href="#music" style="--c:var(--blue)"><div class="top"><span>05</span><span class="mono">▶ sound</span></div><h3>Music</h3></a>
+          <a class="door" href="#food" style="--c:var(--orange)"><div class="top"><span>06</span><span class="mono">160 °C</span></div><h3>Food chemistry</h3></a>
+          <a class="door" href="#gallery" style="--c:var(--rose)"><div class="top"><span>07</span><span class="mono">colour</span></div><h3>Paintings &amp; photos</h3></a>
+          <a class="door" href="#life" style="--c:var(--sage)"><div class="top"><span>08</span><span class="mono">lines</span></div><h3>Life</h3></a>
+          <a class="door" href="#writing" style="--c:var(--sand)"><div class="top"><span>09</span><span class="mono">notes</span></div><h3>Writing</h3></a>
+        </div>
+      </div>
+    </div>
+    <div class="next"><span></span><a href="#interests"><span class="mono">Start here →</span><b>What pulls me in</b></a></div>
+  </div></div>
+</div>
+
+<!-- INTERESTS -->
+<div class="view g" id="v-interests" data-name="What pulls me in" hidden style="--c:var(--teal)"><div class="in page">
+  <div class="kicker mono">01 · Questions</div>
+  <h2>What pulls <i>me</i> in.</h2>
+  <p class="intro">Not a list of samples. These are the questions I'd keep asking even if nobody paid me to.</p>
+
+  <div class="energy">
+    <div class="row"><span class="mono">Where the energy goes when you split water</span><span class="mono" id="effTxt">at 10 mA cm⁻²</span></div>
+    <div class="stack" aria-label="Voltage budget of an electrolyser">
+      <div id="sTh" style="background:var(--teal)">1.23 V needed</div>
+      <div id="sOer" style="background:var(--orange)">OER loss</div>
+      <div id="sHer" style="background:var(--blue)">HER loss</div>
+      <div id="sOhm" style="background:var(--sand)">ohmic</div>
+    </div>
+    <div class="legend"><span class="mono"><i style="background:var(--teal)"></i>thermodynamics</span><span class="mono"><i style="background:var(--orange)"></i>oxygen side (my target)</span><span class="mono"><i style="background:var(--blue)"></i>hydrogen side</span><span class="mono"><i style="background:var(--sand)"></i>resistance</span></div>
+    <p class="intro" style="font-size:16px;margin-top:14px">The oxygen side wastes the most. Shrink the orange bar and green hydrogen gets cheaper. That is most of my PhD in one picture.</p>
+  </div>
+
+  <div class="ints">
+    <article class="int" style="--c:var(--orange)"><span class="num">~0.3 V<small>lost on the oxygen side</small></span><p class="q">Why is making oxygen so hard?</p><p>Four electrons, four protons and an O–O bond, all on one metal site. Every step has to go right. Nickel is cheap and almost good enough. I want to know what "almost" means at the atomic level.</p></article>
+    <article class="int" style="--c:var(--teal)"><span class="num">seconds<small>flash sintering time</small></span><p class="q">What happens when a field hits a material?</p><p>An electric field can sinter ceramics in seconds instead of hours. A magnetic field can nudge spin and structure. Fields are a quiet knob in synthesis, and I like knobs nobody else turns.</p></article>
+    <article class="int" style="--c:var(--blue)"><span class="num">operando<small>measured while working</small></span><p class="q">What is the catalyst, really?</p><p>The powder in the vial is rarely the thing doing the work. Under voltage it rebuilds itself. X-ray absorption and Raman let me watch that happen live, instead of guessing afterwards.</p></article>
+    <article class="int" style="--c:var(--rose)"><span class="num">CO₂ · N₂<small>next molecules</small></span><p class="q">Can electricity make what chemistry plants make?</p><p>Fuels from CO₂ and ammonia from air, at room temperature, driven by renewable power. Water splitting is where I learned the tools. These are where I want to use them, with machine learning to search faster.</p></article>
+  </div>
+  <div class="next"><a href="#home"><span class="mono">← Back</span><b>Home</b></a><a href="#work"><span class="mono">Next →</span><b>What I'm building</b></a></div>
+</div></div>
+
+<!-- WORK -->
+<div class="view g" id="v-work" data-name="What I'm building" hidden style="--c:var(--orange)"><div class="in page">
+  <div class="kicker mono">02 · Projects</div>
+  <h2>What I'm <i>building</i>.</h2>
+  <p class="intro">The projects behind the thesis and around it. Some are finished, some are on the bench right now.</p>
+  <div class="projects">
+    <article class="proj feature" style="--c:var(--teal)">
+      <div style="display:grid;gap:12px;align-content:start">
+        <div class="meta"><span class="st on">Thesis core · writing</span><span class="mono">Ch. 1–3</span></div>
+        <h3>Nickel frameworks for water splitting</h3>
+        <p>Nickel metal–organic frameworks where the only thing I change is the organic linker. Different linkers pull electrons differently, and the oxygen evolution rate follows. Then I use synchrotron X-rays at CHESS to watch each framework rebuild itself into the real catalyst under voltage.</p>
+        <div class="tags"><span>Ni-MOF</span><span>high-entropy MOFs</span><span>operando XAS</span><span>MRS 2026</span></div>
+      </div>
+      <canvas id="mofc" width="800" height="600" aria-label="Rotating model of a nickel framework"></canvas>
+    </article>
+    <article class="proj" style="--c:var(--orange)"><div class="meta"><span class="st on">Submitting</span><span class="mono">TiO₂</span></div><h3>Catalysts made in seconds</h3><p>Flash sintering packs defects into TiO₂ in seconds. Comparing it with slow furnace sintering shows that those defects can favour one reaction over the other.</p><div class="tags"><span>flash sintering</span><span>Fe doping</span><span>OER / HER</span></div></article>
+    <article class="proj" style="--c:var(--rose)"><div class="meta"><span class="st next">Starting</span><span class="mono">Ch. 4</span></div><h3>Synthesis in a magnetic field</h3><p>Turning MOFs into nickel-in-carbon core–shells inside a 1 T magnetic field, to see if the field leaves a fingerprint on structure and activity.</p><div class="tags"><span>0 vs 1000 mT</span><span>Ni@C</span><span>NSF white paper</span></div></article>
+    <article class="proj" style="--c:var(--blue)"><div class="meta"><span class="st build">Building</span><span class="mono">DIY</span></div><h3>A homemade operando Raman cell</h3><p>A 3D-printed thin-layer flow cell so I can shine a laser on the catalyst while it works, without buying a commercial one.</p><div class="tags"><span>3D printing</span><span>operando Raman</span></div></article>
+    <article class="proj" style="--c:var(--sand)"><div class="meta"><span class="st on">Submitting</span><span class="mono">storage</span></div><h3>Flower-shaped NiS electrodes</h3><p>Binder-free nickel sulfide grown straight on nickel foam, for supercapatteries that charge fast and store more.</p><div class="tags"><span>α-NiS</span><span>supercapattery</span><span>EIS</span></div></article>
+    <article class="proj" style="--c:var(--sage)"><div class="meta"><span class="st next">After thesis</span><span class="mono">instrument</span></div><h3>Building a scanning electrochemical microscope</h3><p>A home-built SECM at IIT Kanpur, to map activity across a surface point by point.</p><div class="tags"><span>SECM</span><span>instrumentation</span></div></article>
+    <article class="proj" style="--c:var(--teal)"><div class="meta"><span class="st done">Collaborations</span><span class="mono">team science</span></div><h3>Plastic to hydrogen, and more</h3><p>Turning PET waste into cobalt frameworks for hydrogen, hydrogen storage in organic frameworks, and battery recycling with collaborators across India and the US.</p><div class="tags"><span>PET → MOF</span><span>HOF</span><span>recycling</span></div></article>
+  </div>
+  <div class="timeline">
+    <div><span class="mono">2025–26</span><b>RIT, New York</b></div>
+    <div><span class="mono">Oct 2026</span><b>Beamtime at CHESS</b></div>
+    <div><span class="mono">Dec 2026</span><b>MRS Fall, Boston</b></div>
+    <div><span class="mono">Jan 2027</span><b>ICACC, Daytona</b></div>
+    <div><span class="mono">Apr 2027</span><b>Thesis</b></div>
+  </div>
+  <div class="next"><a href="#interests"><span class="mono">← Back</span><b>What pulls me in</b></a><a href="#playground"><span class="mono">Next →</span><b>Playground</b></a></div>
+</div></div>
+
+<!-- PLAYGROUND -->
+<div class="view g" id="v-playground" data-name="Playground" hidden style="--c:var(--blue)"><div class="in page">
+  <div class="kicker mono">03 · Interactive</div>
+  <h2>Play with the <i>science</i>.</h2>
+  <p class="intro">Three things I measure every week, turned into toys. Drag the sliders.</p>
+
+  <div class="toy" style="--c:var(--teal)">
+    <h3>Make hydrogen</h3>
+    <p class="what">Turn up the voltage on a 1 cm² electrode. Current grows exponentially, and so do the bubbles.</p>
+    <canvas id="bubc" width="900" height="560" style="aspect-ratio:900/560" aria-label="Electrode producing bubbles"></canvas>
+    <div class="knobs">
+      <div class="knob"><label for="volt" class="mono">Potential <b id="voltV">1.52 V</b></label><input id="volt" type="range" min="1.40" max="1.68" step="0.005" value="1.52"></div>
+      <div class="out">
+        <div><span class="mono">Current</span><b id="curV">10.0</b><span class="mono">mA cm⁻²</span></div>
+        <div><span class="mono">H₂ per hour</span><b id="h2V">4.6</b><span class="mono">mL</span></div>
+        <p class="say" id="bubSay">This is the standard benchmark current. Every catalyst paper reports it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toy" style="--c:var(--orange)">
+    <h3>Be the catalyst</h3>
+    <p class="what">Two numbers decide if an oxygen catalyst is good: the overpotential at 10 mA cm⁻², and the Tafel slope. Beat the dashed noble-metal reference.</p>
+    <div><canvas id="lsv" width="960" height="600" style="aspect-ratio:16/10" aria-label="Polarization curve that responds to the sliders"></canvas>
+      <div class="cap"><span class="mono">LSV · 1 M KOH</span><span class="mono" style="color:var(--orange)">— yours</span><span class="mono">--- RuO₂-like</span></div></div>
+    <div class="knobs">
+      <div class="knob"><label for="eta" class="mono">η at 10 <b id="etaV">320 mV</b></label><input id="eta" type="range" min="200" max="480" step="5" value="320"></div>
+      <div class="knob"><label for="tafel" class="mono">Tafel slope <b id="tafV">60 mV/dec</b></label><input id="tafel" type="range" min="30" max="140" step="1" value="60"></div>
+      <div class="out">
+        <div><span class="mono">η at 100</span><b id="eta100">380</b><span class="mono">mV</span></div>
+        <div><span class="mono">E at 100</span><b id="e100">1.610</b><span class="mono">V</span></div>
+        <p class="say" id="lsvSay">About on par with the reference.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toy" style="--c:var(--rose)">
+    <h3>Read an impedance plot</h3>
+    <p class="what">A Nyquist plot shows how hard it is for charge to cross the electrode. Smaller semicircle, faster catalyst. Axes are drawn at equal scale, as they should be.</p>
+    <div><canvas id="nyq" width="960" height="480" style="aspect-ratio:2/1" aria-label="Nyquist plot that responds to the sliders"></canvas>
+      <div class="cap"><span class="mono">Randles circuit · 100 kHz → 0.1 Hz</span><span class="mono">● data &nbsp;— fit</span></div></div>
+    <div class="knobs">
+      <div class="knob"><label for="rs" class="mono">Solution R<sub>s</sub> <b id="rsV">1.5 Ω</b></label><input id="rs" type="range" min="0.5" max="5" step="0.1" value="1.5"></div>
+      <div class="knob"><label for="rct" class="mono">Charge transfer R<sub>ct</sub> <b id="rctV">6.0 Ω</b></label><input id="rct" type="range" min="1" max="20" step="0.5" value="6"></div>
+      <div class="knob"><label for="cdl" class="mono">Double layer C<sub>dl</sub> <b id="cdlV">2.0 mF</b></label><input id="cdl" type="range" min="0.2" max="10" step="0.1" value="2"></div>
+      <div class="out"><div><span class="mono">Peak freq.</span><b id="fpk">13.3</b><span class="mono">Hz</span></div><div><span class="mono">Arc width</span><b id="arc">6.0</b><span class="mono">Ω</span></div></div>
+    </div>
+  </div>
+  <div class="next"><a href="#work"><span class="mono">← Back</span><b>What I'm building</b></a><a href="#papers"><span class="mono">Next →</span><b>Papers</b></a></div>
+</div></div>
+
+<!-- PAPERS -->
+<div class="view g" id="v-papers" data-name="Papers" hidden style="--c:var(--rose)"><div class="in page">
+  <div class="kicker mono">04 · Record</div>
+  <h2>On the <i>record</i>.</h2>
+  <ul class="pubs">
+    <li class="pub"><span class="st p">Published</span><div><h3>Supercapacitor electrode paper</h3><p>Add full title, journal and DOI.</p></div><span class="role">First author</span></li>
+    <li class="pub"><span class="st r">Under review</span><div><h3>Manuscript under review</h3><p>Add title and journal.</p></div><span class="role">First author</span></li>
+    <li class="pub"><span class="st s">Submitting</span><div><h3>Flash vs. conventional sintering of TiO₂: reaction-selective defect engineering for OER and HER</h3><p>Working title</p></div><span class="role">First author</span></li>
+    <li class="pub"><span class="st s">Submitting</span><div><h3>Binder-free α-NiS flower electrodes on Ni foam for supercapatteries</h3><p>Working title</p></div><span class="role">First author</span></li>
+    <li class="pub"><span class="st w">In preparation</span><div><h3>Linker effects in Ni-MOFs for alkaline water splitting, with operando XAS</h3><p>Poster · MRS Fall Meeting 2026, Boston</p></div><span class="role">First author</span></li>
+    <li class="pub"><span class="st w">In preparation</span><div><h3>Melamine–trimesic acid HOF for hydrogen storage</h3></div><span class="role">Co-author</span></li>
+    <li class="pub"><span class="st w">In preparation</span><div><h3>PET-waste-derived Co-MOF for water splitting and hydrogen generation</h3></div><span class="role">Co-author</span></li>
+  </ul>
+  <div class="next"><a href="#playground"><span class="mono">← Back</span><b>Playground</b></a><a href="#music"><span class="mono">Off the bench →</span><b>Music</b></a></div>
+</div></div>
+
+<!-- MUSIC -->
+<div class="view g" id="v-music" data-name="Music" hidden style="--c:var(--blue)"><div class="in page">
+  <div class="kicker mono">05 · Off the bench</div>
+  <h2>Why some notes <i>agree</i>.</h2>
+  <p class="intro">Two notes sound sweet together when their frequencies form a simple ratio. Pick an interval, press play, and watch the shape the two waves draw.</p>
+  <div class="music">
+    <div class="scope">
+      <canvas id="liss" width="700" height="700" aria-label="Lissajous figure of the selected interval"></canvas>
+      <div class="row" role="group" aria-label="Interval">
+        <button data-r="2,1" aria-pressed="false">Octave</button>
+        <button data-r="3,2" aria-pressed="true">Fifth</button>
+        <button data-r="4,3" aria-pressed="false">Fourth</button>
+        <button data-r="5,4" aria-pressed="false">Major 3rd</button>
+        <button data-r="45,32" aria-pressed="false">Tritone</button>
+        <button id="play" style="margin-left:auto">▶ Play</button>
+      </div>
+    </div>
+    <div>
+      <div class="fact"><span class="mono">Frequency ratio</span><div class="ratio" id="ratio">3 : 2</div><h3 id="intName">The perfect fifth</h3><p id="intText">Every third wave of one note lines up with every second wave of the other. The pattern closes quickly, so the ear hears it as calm. In Indian music it is Sa to Pa.</p></div>
+      <span class="mono" style="display:block;margin-top:40px">On repeat</span>
+      <ol class="playlist">
+        <li><span>01</span><span class="ph">Add a song you love</span><span class="mono">artist</span></li>
+        <li><span>02</span><span class="ph">Add a song for late lab nights</span><span class="mono">artist</span></li>
+        <li><span>03</span><span class="ph">Add a song from home</span><span class="mono">artist</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="next"><a href="#papers"><span class="mono">← Back</span><b>Papers</b></a><a href="#food"><span class="mono">Next →</span><b>Food chemistry</b></a></div>
+</div></div>
+
+<!-- FOOD -->
+<div class="view g" id="v-food" data-name="Food chemistry" hidden style="--c:var(--orange)"><div class="in page">
+  <div class="kicker mono">06 · Off the bench</div>
+  <h2>The kitchen is a <i>lab</i>.</h2>
+  <p class="intro">Cooking is chemistry you get to eat. A few reactions I think about at the stove.</p>
+  <div class="food">
+    <article class="dish"><span class="t">140–165 °C</span><h3>Why toast tastes like toast</h3><p>The Maillard reaction. Sugars and amino acids react on hot, dry surfaces and make hundreds of flavour molecules. Water holds food near 100 °C, which is why boiled food never browns.</p><span class="rx">sugar + amino acid → melanoidins + aroma</span></article>
+    <article class="dish"><span class="t">pH &gt; 8</span><h3>Turmeric is a pH indicator</h3><p>Curcumin is yellow in acid and turns red-brown in alkali. Spill haldi dal on soapy hands and watch it change. Same chemistry as my KOH electrolyte.</p><span class="rx">curcumin (yellow) + OH⁻ → phenolate (red)</span></article>
+    <article class="dish"><span class="t">~120 °C</span><h3>Why the pressure cooker wins</h3><p>Higher pressure raises the boiling point. A few extra degrees speeds softening a lot, so dal that needs an hour in a pot needs minutes under the whistle.</p><span class="rx">P ↑ → T<sub>boil</sub> ↑ → rate ↑</span></article>
+    <article class="dish"><span class="t">tadka</span><h3>Spices belong in hot oil</h3><p>Many aroma compounds in cumin, mustard and chilli dissolve in fat, not water. Blooming them in hot ghee pulls the flavour out and carries it through the dish.</p><span class="rx">like dissolves like</span></article>
+    <article class="dish"><span class="t">chai</span><h3>Milk softens bitter tea</h3><p>Tea tannins bind to milk proteins like casein. Fewer free tannins reach your tongue, so strong chai tastes round instead of harsh.</p><span class="rx">tannin + casein → complex</span></article>
+    <article class="dish"><span class="t">−18 °C</span><h3>Ice cream is a material</h3><p>Ice crystals, air bubbles and fat droplets held in sugar syrup. Smaller crystals feel smoother, which is why fast freezing makes better ice cream.</p><span class="rx">foam + emulsion + crystals</span></article>
+  </div>
+  <div class="ph-strip"><span class="mono">Turmeric across pH 2 → 12</span><div class="swatch" aria-hidden="true"><i style="background:#E8C547"></i><i style="background:#E9C044"></i><i style="background:#EAB83F"></i><i style="background:#E59A3A"></i><i style="background:#D06A34"></i><i style="background:#B4472F"></i><i style="background:#94322B"></i></div></div>
+  <div class="next"><a href="#music"><span class="mono">← Back</span><b>Music</b></a><a href="#gallery"><span class="mono">Next →</span><b>Paintings &amp; photos</b></a></div>
+</div></div>
+
+<!-- GALLERY -->
+<div class="view g" id="v-gallery" data-name="Paintings & photos" hidden style="--c:var(--rose)"><div class="in page">
+  <div class="kicker mono">07 · Off the bench</div>
+  <h2>Colour is <i>physics</i> you can feel.</h2>
+  <p class="intro">Paintings, and photographs from between two winters. Until mine are up, the canvas paints itself in my palette. Tap it.</p>
+  <div class="gallery">
+    <div class="canvasbox">
+      <canvas id="paintc" width="800" height="1000" aria-label="Generative painting, tap to repaint"></canvas>
+      <div class="row"><span class="mono" id="opus">Study No. 1 · generative</span><button id="repaint">Repaint</button></div>
+    </div>
+    <figure class="frame"><div class="f" style="background:linear-gradient(160deg,#C9765F,#E9B87D 55%,#6E8D86)"><span>PAINTING 01</span></div><figcaption><b>Add a painting</b><span class="mono">year</span></figcaption></figure>
+    <figure class="frame"><div class="f" style="background:linear-gradient(200deg,#365C7A,#7FA393 60%,#E3C886)"><span>PAINTING 02</span></div><figcaption><b>Add a painting</b><span class="mono">year</span></figcaption></figure>
+    <figure class="frame"><div class="f" style="background:linear-gradient(140deg,#7A4E6A,#D98A85 55%,#F0C990)"><span>PAINTING 03</span></div><figcaption><b>Add a painting</b><span class="mono">year</span></figcaption></figure>
+    <figure class="frame"><div class="f" style="background:linear-gradient(170deg,#2D6B6A,#9BBE95 60%,#F2DDA0)"><span>PAINTING 04</span></div><figcaption><b>Add a painting</b><span class="mono">year</span></figcaption></figure>
+  </div>
+  <div class="reel" tabindex="0" aria-label="Photographs, scroll sideways">
+    <figure class="shot"><div class="f" style="background:linear-gradient(170deg,#3B5C7E,#7FA393 55%,#E0C27F)"><span>FRAME 01</span></div><figcaption><b>First snow</b><span class="mono">Rochester</span></figcaption></figure>
+    <figure class="shot"><div class="f" style="background:linear-gradient(200deg,#D9866F,#EAB676 50%,#5E7F72)"><span>FRAME 02</span></div><figcaption><b>Chai at dusk</b><span class="mono">Kanpur</span></figcaption></figure>
+    <figure class="shot"><div class="f" style="background:linear-gradient(150deg,#1F5A62,#5E94AA 60%,#C3D2BE)"><span>FRAME 03</span></div><figcaption><b>Lake in October</b><span class="mono">New York</span></figcaption></figure>
+    <figure class="shot"><div class="f" style="background:linear-gradient(180deg,#E39E66,#C06C6E 60%,#3E4F70)"><span>FRAME 04</span></div><figcaption><b>Night shift</b><span class="mono">Beamline</span></figcaption></figure>
+    <figure class="shot"><div class="f" style="background:linear-gradient(130deg,#7FA287,#D3BC77 55%,#D18580)"><span>FRAME 05</span></div><figcaption><b>Market colours</b><span class="mono">India</span></figcaption></figure>
+    <figure class="shot"><div class="f" style="background:linear-gradient(160deg,#25485F,#4D8C9C 50%,#E7A36B)"><span>FRAME 06</span></div><figcaption><b>Harbour light</b><span class="mono">Boston</span></figcaption></figure>
+    <button class="add-shot" id="addShot" type="button">+ Add photo</button>
+  </div>
+  <div class="next"><a href="#food"><span class="mono">← Back</span><b>Food chemistry</b></a><a href="#life"><span class="mono">Next →</span><b>Life</b></a></div>
+</div></div>
+
+<!-- LIFE -->
+<div class="view g" id="v-life" data-name="Life" hidden style="--c:var(--sage)"><div class="in page">
+  <div class="kicker mono">08 · Off the bench</div>
+  <h2>A few <i>lines</i>.</h2>
+  <div class="lines">
+    <blockquote>A catalyst is never the thing you made. It is what your material becomes under pressure. People too.<cite class="mono">On becoming</cite></blockquote>
+    <blockquote>Most experiments fail quietly. The good ones fail loudly enough to teach you something.<cite class="mono">Lab notebook</cite></blockquote>
+    <blockquote>Two cities, two winters, one long overpotential between them.<cite class="mono">Kanpur ⟷ Rochester</cite></blockquote>
+  </div>
+  <div class="next"><a href="#gallery"><span class="mono">← Back</span><b>Paintings &amp; photos</b></a><a href="#writing"><span class="mono">Next →</span><b>Writing</b></a></div>
+</div></div>
+
+<!-- WRITING -->
+<div class="view g" id="v-writing" data-name="Writing" hidden style="--c:var(--sand)"><div class="in page">
+  <div class="kicker mono">09 · Off the bench</div>
+  <h2>Notes &amp; <i>write-ups</i>.</h2>
+  <p class="intro">Longer thoughts on research, books, travel and anything that doesn't fit in a line.</p>
+  <div class="posts" id="posts"></div>
+  <button class="add-post" id="newPost" type="button" hidden>+ New write-up</button>
+  <div class="next"><a href="#life"><span class="mono">← Back</span><b>Life</b></a><a href="#contact"><span class="mono">Next →</span><b>Say hello</b></a></div>
+</div></div>
+
+<!-- CONTACT -->
+<div class="view g" id="v-contact" data-name="Say hello" hidden style="--c:var(--teal)"><div class="in page">
+  <div class="kicker mono">10 · Contact</div>
+  <h2>Let's make<br><i>bubbles</i>.</h2>
+  <p class="intro">Open to postdoc positions and collaborations in operando electrocatalysis, green hydrogen and field-assisted synthesis. Also happy to talk about chai, a song, or a photo you liked.</p>
+  <div class="mail"><code id="email">anupamhalder1997@gmail.com</code><button id="copy" type="button">Copy</button></div>
+  <div class="next"><a href="#writing"><span class="mono">← Back</span><b>Writing</b></a><a href="#home"><span class="mono">Start over →</span><b>Home</b></a></div>
+</div></div>
+</main>
+
+<div class="editbar" id="editbar" hidden>
+  <span class="msg" id="editMsg">Only editors see this</span>
+  <button id="editBtn" type="button">Edit page</button>
+  <button id="cancelBtn" type="button" hidden>Cancel</button>
+  <button id="saveBtn" type="button" class="primary" hidden>Save</button>
+</div>
+<input type="file" id="filePick" accept="image/*" hidden>
+
+<script type="application/json" id="site-state">{"text":{},"photos":{},"posts":[],"shots":[]}</script>
+
+<script>
+(function(){
+/* capture the page source before anything changes it, so a save can rebuild it from state */
+const START='<!-'+'-site-start-->';
+const RAW=document.body.innerHTML;
+const PRISTINE=RAW.indexOf(START)>=0?RAW.slice(RAW.indexOf(START)):RAW;
+const RESET=(document.querySelector('head style')||{}).textContent||'';
+let S={text:{},photos:{},posts:[],shots:[]};
+try{Object.assign(S,JSON.parse(document.getElementById('site-state').textContent));}catch(e){}
+
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $=id=>document.getElementById(id);
+
+/* ---------- routing + menu ---------- */
+const views=[...document.querySelectorAll('.view')];
+const menu=$('menu'),burger=$('burger');
+let current='home';
+function setMenu(open){menu.hidden=!open;burger.setAttribute('aria-expanded',open);document.body.style.overflow=open?'hidden':'';if(open)menu.querySelector('a[aria-current]')?.focus();}
+burger.addEventListener('click',()=>setMenu(menu.hidden));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&!menu.hidden){setMenu(false);burger.focus();}});
+function route(){
+  let h=(location.hash||'#home').slice(1);if(!$('v-'+h))h='home';
+  views.forEach(v=>v.hidden=v.id!=='v-'+h);
+  current=h;$('where').textContent=$('v-'+h).dataset.name;
+  menu.querySelectorAll('a').forEach(a=>a.toggleAttribute('aria-current',a.getAttribute('href')==='#'+h));
+  menu.querySelectorAll('a[aria-current]').forEach(a=>a.setAttribute('aria-current','page'));
+  setMenu(false);scrollTo(0,0);
+  if(h==='playground'){plotLSV();plotNyq();}
+}
+addEventListener('hashchange',route);
+
+/* ---------- home hero ---------- */
+const cv=$('stage'),cx=cv.getContext('2d');let W=0,H=0;
+function size(){const dpr=Math.min(2,devicePixelRatio||1);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0);}
+function lattice(N){const n=[],e=[];const id=(i,j,k)=>i*N*N+j*N+k;
+  for(let i=0;i<N;i++)for(let j=0;j<N;j++)for(let k=0;k<N;k++){n.push({x:i-(N-1)/2,y:j-(N-1)/2,z:k-(N-1)/2,hot:Math.random()<.12});
+    if(i<N-1)e.push([id(i,j,k),id(i+1,j,k)]);if(j<N-1)e.push([id(i,j,k),id(i,j+1,k)]);if(k<N-1)e.push([id(i,j,k),id(i,j,k+1)]);}return{n,e};}
+function drawLattice(g,L,ay,ax,cxp,cyp,sc){
+  const cY=Math.cos(ay),sY=Math.sin(ay),cX=Math.cos(ax),sX=Math.sin(ax);
+  const P=L.n.map(p=>{let x=p.x*cY-p.z*sY,z=p.x*sY+p.z*cY;const y=p.y*cX-z*sX;z=p.y*sX+z*cX;const f=4.2/(4.2+z);return{x:cxp+x*sc*f,y:cyp+y*sc*f,z,f,hot:p.hot};});
+  g.lineWidth=1;
+  L.e.forEach(([a,b])=>{const A=P[a],B=P[b],al=Math.max(.05,0.08+0.32*(1-((A.z+B.z)/2+2)/4));
+    g.strokeStyle=`rgba(47,181,176,${al})`;g.beginPath();g.moveTo(A.x,A.y);g.lineTo(B.x,B.y);g.stroke();});
+  P.slice().sort((a,b)=>b.z-a.z).forEach(p=>{const r=(p.hot?4.2:3)*p.f,al=0.35+0.6*(1-(p.z+2)/4),col=p.hot?'243,159,89':'47,181,176';
+    const gr=g.createRadialGradient(p.x,p.y,0,p.x,p.y,r*5);gr.addColorStop(0,`rgba(${col},${al*.55})`);gr.addColorStop(1,`rgba(${col},0)`);
+    g.fillStyle=gr;g.beginPath();g.arc(p.x,p.y,r*5,0,7);g.fill();
+    g.fillStyle=`rgba(${p.hot?'250,210,170':'200,240,236'},${al})`;g.beginPath();g.arc(p.x,p.y,r,0,7);g.fill();});
+}
+const L1=lattice(4),L2=lattice(3);
+let ay=.6,ax=-.35,tx=0,ty=0;
+addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5)*.5;});
+const hb=[];let acc=0,sp=0,lastC=0;
+function heroFrame(t){
+  if(cv.clientWidth!==W||cv.clientHeight!==H)size();
+  const s=t/1000,ph=(s%16)/16,E=1.40+0.22*(ph<.5?ph*2:2-ph*2),j=10*Math.pow(10,(E-1.52)/0.06);
+  $('hE').textContent=E.toFixed(3);$('hJ').textContent=j<10?j.toFixed(2):j.toFixed(1);
+  cx.clearRect(0,0,W,H);
+  ay+=0.0016+tx*0.0015;ax+=((-0.35+ty)-ax)*0.03;
+  const wide=W>820;drawLattice(cx,L1,ay,ax,W*(wide?.66:.5),H*(wide?.42:.34),Math.min(W,H)*(wide?.21:.19));
+  const ey=H-2;cx.fillStyle='rgba(47,181,176,.25)';cx.fillRect(0,ey,W,2);
+  acc+=Math.min(40,j*.9)/60;while(acc>=1){acc--;sp++;hb.push({x:Math.random()*W,y:ey,r:1+Math.random()*3.5,v:.5+Math.random()*1.4,w:Math.random()*6});}
+  bubbleStep(cx,hb,H*.6);
+  if(t-lastC>1000){$('hB').textContent=Math.round(sp*1000/(t-lastC||1000));sp=0;lastC=t;}
+}
+function bubbleStep(g,arr,fade){
+  for(let i=arr.length-1;i>=0;i--){const b=arr[i];b.y-=b.v*(1+b.r*.25);b.r+=.004;const x=b.x+Math.sin(b.y*.02+b.w)*3,al=Math.min(1,b.y/fade);
+    g.strokeStyle=`rgba(200,240,236,${.5*al})`;g.lineWidth=1.2;g.beginPath();g.arc(x,b.y,b.r,0,7);g.stroke();
+    g.fillStyle=`rgba(255,255,255,${.55*al})`;g.fillRect(x-b.r*.4,b.y-b.r*.5,1.4,1.4);if(b.y<-10)arr.splice(i,1);}
+}
+
+/* ---------- work: small MOF ---------- */
+const mc=$('mofc'),mx=mc.getContext('2d');let may=0;
+function mofFrame(){mx.clearRect(0,0,800,600);may+=.006;drawLattice(mx,L2,may,-.4,400,300,150);
+  mx.fillStyle='#8BA3A0';mx.font='18px "JetBrains Mono", monospace';mx.fillText('● Ni node   — organic linker',24,570);}
+
+/* ---------- interests: voltage budget ---------- */
+(function(){const th=1.23,oer=.32,her=.10,ohm=.15,tot=th+oer+her+ohm;
+  [['sTh',th,'1.23 V needed'],['sOer',oer,'OER '+oer.toFixed(2)+' V'],['sHer',her,'HER'],['sOhm',ohm,'ohmic']].forEach(([id,v,t])=>{$(id).style.flexGrow=v;$(id).style.flexBasis='0';$(id).textContent=t;});
+  $('effTxt').textContent='≈ '+tot.toFixed(2)+' V total · '+Math.round(th/tot*100)+'% efficient';})();
+
+/* ---------- playground: bubbles ---------- */
+const bc=$('bubc'),bx=bc.getContext('2d'),pb=[];let bacc=0;
+function bubParams(){const E=+$('volt').value,j=10*Math.pow(10,(E-1.52)/0.06);return{E,j};}
+function bubUI(){const{E,j}=bubParams();$('voltV').textContent=E.toFixed(3)+' V';$('curV').textContent=j<10?j.toFixed(2):j.toFixed(0);
+  $('h2V').textContent=(j*0.456).toFixed(j<1?2:1);
+  $('bubSay').textContent=j<1?'Barely anything. Below the onset, the catalyst is still waking up.':j<20?'Around the benchmark current. Every catalyst paper reports this point.':j<200?'Now it fizzes. Each 60 mV more gives ten times the current.':'Industrial territory. Real electrolysers run here, and bubbles start blocking the surface.';}
+$('volt').addEventListener('input',bubUI);bubUI();
+function bubFrame(){const Wd=900,Hd=560;bx.clearRect(0,0,Wd,Hd);
+  bx.fillStyle='#1F3A39';bx.fillRect(150,Hd-110,600,110);bx.fillStyle='#2FB5B0';bx.fillRect(150,Hd-112,600,3);
+  bx.fillStyle='#8BA3A0';bx.font='18px "JetBrains Mono", monospace';bx.fillText('electrode · 1 cm²',164,Hd-70);bx.fillText('1 M KOH',Wd-110,34);
+  const{j}=bubParams();bacc+=Math.min(60,j*.5)/60;
+  while(bacc>=1){bacc--;if(pb.length<600)pb.push({x:160+Math.random()*580,y:Hd-114,r:1.5+Math.random()*4.5,v:.6+Math.random()*1.6,w:Math.random()*6});}
+  bubbleStep(bx,pb,Hd*.5);}
+
+/* ---------- playground: LSV ---------- */
+function plotLSV(){const c=$('lsv'),g=c.getContext('2d'),h=+$('eta').value,b=+$('tafel').value;
+  const Lp=86,R=24,T=24,B=76,CW=960,CH=600,E0=1.2,E1=1.8,JM=150;
+  const sx=e=>Lp+(e-E0)/(E1-E0)*(CW-Lp-R),sy=j=>CH-B-Math.min(j,JM)/JM*(CH-T-B);
+  const cur=(e,hh,bb)=>{const x=e-1.23-hh/1000;return x<-.12?0:10*Math.pow(10,x/(bb/1000));};
+  g.clearRect(0,0,CW,CH);g.font='20px "JetBrains Mono", monospace';g.lineWidth=1;g.strokeStyle='#1F3A39';g.fillStyle='#8BA3A0';
+  g.textAlign='center';for(let e=1.2;e<=1.801;e+=.1){const X=sx(e);g.beginPath();g.moveTo(X,T);g.lineTo(X,CH-B);g.stroke();g.fillText(e.toFixed(1),X,CH-B+30);}
+  g.textAlign='right';for(let j=0;j<=150;j+=50){const Y=sy(j);g.beginPath();g.moveTo(Lp,Y);g.lineTo(CW-R,Y);g.stroke();g.fillText(j,Lp-12,Y+7);}
+  g.strokeStyle='#E6F0EE';g.beginPath();g.moveTo(Lp,T);g.lineTo(Lp,CH-B);g.lineTo(CW-R,CH-B);g.stroke();
+  g.textAlign='center';g.fillText('E (V vs RHE)',(Lp+CW-R)/2,CH-14);g.save();g.translate(24,(T+CH-B)/2);g.rotate(-Math.PI/2);g.fillText('j (mA cm⁻²)',0,0);g.restore();
+  g.save();g.beginPath();g.rect(Lp,T,CW-Lp-R,CH-T-B);g.clip();
+  g.strokeStyle='#8BA3A0';g.lineWidth=2.5;g.setLineDash([10,8]);g.beginPath();for(let e=E0;e<=E1;e+=.002){const X=sx(e),Y=sy(cur(e,330,65));e===E0?g.moveTo(X,Y):g.lineTo(X,Y);}g.stroke();
+  g.setLineDash([]);g.strokeStyle='#F39F59';g.lineWidth=4;g.beginPath();for(let e=E0;e<=E1;e+=.002){const X=sx(e),Y=sy(cur(e,h,b));e===E0?g.moveTo(X,Y):g.lineTo(X,Y);}g.stroke();
+  g.fillStyle='#F39F59';g.beginPath();g.arc(sx(1.23+h/1000),sy(10),7,0,7);g.fill();g.restore();
+  $('etaV').textContent=h+' mV';$('tafV').textContent=b+' mV/dec';const h100=h+b;$('eta100').textContent=h100;$('e100').textContent=(1.23+h100/1000).toFixed(3);
+  const d=h100-395;$('lsvSay').textContent=d<-40?'Better than the noble-metal reference. Check your iR correction before celebrating.':d<=25?'About on par with the reference.':d<=90?'Respectable. A lower Tafel slope helps most at high current.':'Too sluggish for an electrolyser. Back to the furnace.';}
+['eta','tafel'].forEach(i=>$(i).addEventListener('input',plotLSV));
+
+/* ---------- playground: Nyquist (equal axes) ---------- */
+function plotNyq(){const c=$('nyq'),g=c.getContext('2d'),Rs=+$('rs').value,Rct=+$('rct').value,C=+$('cdl').value/1000;
+  const Lp=90,T=20,PW=840,PH=420,CW=960,CH=480;
+  const raw=(Rs+Rct)*1.15,step=raw<=10?2:raw<=20?4:5,Xm=Math.ceil(raw/step)*step,Ym=Xm/2;
+  const sx=x=>Lp+x/Xm*PW,sy=y=>T+PH-y/Ym*PH;
+  g.clearRect(0,0,CW,CH);g.font='18px "JetBrains Mono", monospace';g.lineWidth=1;g.strokeStyle='#1F3A39';g.fillStyle='#8BA3A0';
+  g.textAlign='center';for(let x=0;x<=Xm+1e-6;x+=step){g.beginPath();g.moveTo(sx(x),T);g.lineTo(sx(x),T+PH);g.stroke();g.fillText(x,sx(x),T+PH+24);}
+  g.textAlign='right';for(let y=0;y<=Ym+1e-6;y+=step){g.beginPath();g.moveTo(Lp,sy(y));g.lineTo(Lp+PW,sy(y));g.stroke();g.fillText(y,Lp-10,sy(y)+6);}
+  g.strokeStyle='#E6F0EE';g.beginPath();g.moveTo(Lp,T);g.lineTo(Lp,T+PH);g.lineTo(Lp+PW,T+PH);g.stroke();
+  g.save();g.translate(22,T+PH/2);g.rotate(-Math.PI/2);g.textAlign='center';g.fillText("−Z'' (Ω)",0,0);g.restore();
+  g.textAlign='right';g.fillText("Z' (Ω)",Lp+PW,T+PH-10);
+  const Z=w=>{const d=1+Math.pow(w*Rct*C,2);return[Rs+Rct/d,Rct*Rct*C*w/d];};
+  g.save();g.beginPath();g.rect(Lp,T,PW,PH);g.clip();
+  for(let i=0;i<=40;i++){const f=Math.pow(10,5-i*6/40),[x,y]=Z(2*Math.PI*f);g.fillStyle='rgba(251,122,122,0.45)';g.beginPath();g.arc(sx(x),sy(y),7,0,7);g.fill();}
+  g.strokeStyle='rgba(251,122,122,0.95)';g.lineWidth=2.5;g.beginPath();for(let i=0;i<=400;i++){const f=Math.pow(10,6-i*8/400),[x,y]=Z(2*Math.PI*f);i?g.lineTo(sx(x),sy(y)):g.moveTo(sx(x),sy(y));}g.stroke();
+  g.restore();
+  $('rsV').textContent=Rs.toFixed(1)+' Ω';$('rctV').textContent=Rct.toFixed(1)+' Ω';$('cdlV').textContent=(C*1000).toFixed(1)+' mF';
+  const fp=1/(2*Math.PI*Rct*C);$('fpk').textContent=fp<10?fp.toFixed(2):fp.toFixed(1);$('arc').textContent=Rct.toFixed(1);}
+['rs','rct','cdl'].forEach(i=>$(i).addEventListener('input',plotNyq));
+
+/* ---------- music ---------- */
+const lc=$('liss'),lx=lc.getContext('2d');
+const info={'2,1':['The octave','Same note, twice as fast. The waves line up every other cycle, so the two sound like one.'],
+ '3,2':['The perfect fifth','Every third wave of one note lines up with every second wave of the other. The pattern closes quickly, so the ear hears it as calm. In Indian music it is Sa to Pa.'],
+ '4,3':['The perfect fourth','Still simple, still stable. Sa to Ma, with a feeling of arriving.'],
+ '5,4':['The major third','A little more complex, and warm. It is the bright note inside a happy major chord.'],
+ '45,32':['The tritone','A messy ratio that never settles. The figure never closes, and the sound feels tense. Film scores use it to build suspense.']};
+let ra=3,rb=2,lph=0,actx=null,live=null;
+document.querySelectorAll('[data-r]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('[data-r]').forEach(o=>o.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');
+  [ra,rb]=b.dataset.r.split(',').map(Number);$('ratio').textContent=ra+' : '+rb;$('intName').textContent=info[b.dataset.r][0];$('intText').textContent=info[b.dataset.r][1];
+  lx.fillStyle='#0B1C1C';lx.fillRect(0,0,700,700);if(live)play();if(reduce)lissFrame();}));
+lx.fillStyle='#0B1C1C';lx.fillRect(0,0,700,700);
+function lissFrame(){lph+=.012;lx.fillStyle='rgba(11,28,28,0.28)';lx.fillRect(0,0,700,700);
+  lx.strokeStyle='#1F3A39';lx.lineWidth=1;lx.beginPath();lx.moveTo(350,30);lx.lineTo(350,670);lx.moveTo(30,350);lx.lineTo(670,350);lx.stroke();
+  lx.strokeStyle='#5AA3D6';lx.lineWidth=2.4;lx.beginPath();const n=ra>20?3000:1400;
+  for(let i=0;i<=n;i++){const t=i/n*Math.PI*2*(ra>20?16:rb),x=350+Math.sin(ra/rb*t+lph)*280,y=350+Math.sin(t)*280;i?lx.lineTo(x,y):lx.moveTo(x,y);}lx.stroke();}
+function play(){try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();}catch(e){return;}
+  if(live)live.forEach(o=>{try{o.stop()}catch(e){}});const g=actx.createGain();g.connect(actx.destination);const now=actx.currentTime;
+  g.gain.setValueAtTime(0,now);g.gain.linearRampToValueAtTime(.18,now+.05);g.gain.exponentialRampToValueAtTime(.001,now+2.4);
+  live=[220,220*ra/rb].map(f=>{const o=actx.createOscillator();o.type='sine';o.frequency.value=f;o.connect(g);o.start(now);o.stop(now+2.5);return o;});
+  setTimeout(()=>{live=null},2500);}
+$('play').addEventListener('click',play);
+
+/* ---------- painting ---------- */
+const pc=$('paintc'),px=pc.getContext('2d'),pal=['#008686','#F39F59','#0067AA','#FB6464','#A9C49A','#E3C886','#2D4A5A'];let opn=1;
+function paint(){const Wd=800,Hd=1000,r=(a,b)=>a+Math.random()*(b-a);px.fillStyle='#EDE6D8';px.fillRect(0,0,Wd,Hd);
+  for(let k=0;k<7;k++){const col=pal[Math.floor(Math.random()*pal.length)],c0=r(80,Wd-80),c1=r(80,Hd-80),R=r(120,320);px.globalAlpha=.06;px.fillStyle=col;
+    for(let s=0;s<40;s++){px.beginPath();const rr0=R*r(.6,1.05);for(let a=0;a<=Math.PI*2+.01;a+=Math.PI/14){const rr=rr0*(1+.18*Math.sin(a*3+s)+r(-.06,.06));const x=c0+Math.cos(a)*rr,y=c1+Math.sin(a)*rr*r(.8,1.2);a?px.lineTo(x,y):px.moveTo(x,y);}px.closePath();px.fill();}}
+  px.globalAlpha=.85;px.strokeStyle='#1A2B2A';px.lineWidth=2.5;px.beginPath();let x=r(60,200),y=r(700,900);px.moveTo(x,y);
+  for(let i=0;i<6;i++){x+=r(60,140);y-=r(40,140);px.quadraticCurveTo(x-r(20,60),y+r(-80,80),x,y);}px.stroke();px.globalAlpha=1;
+  for(let i=0;i<4000;i++){px.fillStyle=`rgba(40,30,20,${Math.random()*.05})`;px.fillRect(Math.random()*Wd,Math.random()*Hd,1.4,1.4);}
+  $('opus').textContent='Study No. '+opn+' · generative';}
+paint();const rep=()=>{opn++;paint();};pc.addEventListener('click',rep);$('repaint').addEventListener('click',rep);
+
+/* ---------- copy ---------- */
+const btn=$('copy'),em=$('email');
+btn.addEventListener('click',()=>{const sel=()=>{getSelection().selectAllChildren(em);btn.textContent='Selected';};
+  try{navigator.clipboard.writeText(em.textContent).then(()=>{btn.textContent='Copied';setTimeout(()=>btn.textContent='Copy',1600)},sel);}catch(e){sel();}});
+
+/* ---------- editing: text, photos, write-ups ---------- */
+const OK={I:1,EM:1,B:1,STRONG:1,BR:1,SMALL:1,SUB:1,SUP:1,CITE:1};
+function clean(html){
+  const t=document.createElement('template');t.innerHTML=html;const root=t.content;
+  let bad;while((bad=[...root.querySelectorAll('*')].find(x=>!OK[x.tagName])))bad.replaceWith(...bad.childNodes);
+  root.querySelectorAll('*').forEach(c=>{const mono=c.tagName==='CITE'&&c.classList.contains('mono');[...c.attributes].forEach(a=>c.removeAttribute(a.name));if(mono)c.className='mono';});
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_COMMENT),cm=[];while(w.nextNode())cm.push(w.currentNode);cm.forEach(c=>c.remove());
+  return t.innerHTML.trim();
+}
+const SEL=['h1 span','h2','h3','p','blockquote','figcaption b','figcaption .mono','.playlist li > span:not(:first-child)','.tags span','.timeline b','.timeline .mono','.facts span','.dish .t','.dish .rx','.pub .role','.st','.kicker','.door .mono','.sub .mono','.int .num'].join(',');
+const keyed=[],orig={};
+views.forEach(v=>{let i=0;v.querySelectorAll(SEL).forEach(el=>{
+  if(el.id||el.querySelector('[id]')||el.closest('#posts')||el.parentElement.closest('[data-k]'))return;
+  const k=v.id+'#'+(i++);el.dataset.k=k;orig[k]=el.innerHTML;keyed.push(el);});});
+function applyText(){keyed.forEach(el=>{const v=S.text[el.dataset.k];el.innerHTML=v!=null?clean(v):orig[el.dataset.k];});}
+
+function showPhoto(el,id){
+  if(id){el.style.backgroundImage='url("/_blob/'+encodeURIComponent(id)+'")';el.classList.add('has-photo');}
+  else{el.style.backgroundImage=el.dataset.bg||'';el.classList.remove('has-photo');}
+}
+let ART=null,assets=null,editing=false,snap=null,pickCb=null;
+const msg=t=>{$('editMsg').textContent=t;};
+function pickPhoto(cb){if(!assets){msg('Photo upload is not available in this view.');return;}pickCb=cb;$('filePick').click();}
+$('filePick').addEventListener('change',async e=>{
+  const f=e.target.files[0];e.target.value='';if(!f||!pickCb)return;const cb=pickCb;pickCb=null;msg('Uploading…');
+  try{const r=await assets.upload(f);cb(r.id);msg('Photo added. Press Save to keep it.');}
+  catch(err){msg(err&&err.code==='too_large'?'That photo is over 20 MB. Try a smaller one.':'Upload failed ('+((err&&err.code)||'error')+'). Try again.');}
+});
+function addTools(el,onSet,onRemove){
+  const box=document.createElement('div');box.className='photo-tools';
+  const up=document.createElement('button');up.type='button';up.textContent='Photo';
+  const rm=document.createElement('button');rm.type='button';rm.textContent='Remove';
+  box.append(up,rm);el.append(box);
+  up.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();pickPhoto(id=>{onSet(id);showPhoto(el,id);});});
+  rm.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();onRemove();showPhoto(el,null);});
+}
+const photoEls=[...document.querySelectorAll('.frame .f, .shot .f')];
+photoEls.forEach((el,i)=>{el.dataset.p='photo-'+i;el.dataset.bg=el.style.backgroundImage;
+  addTools(el,id=>{S.photos[el.dataset.p]=id;},()=>{delete S.photos[el.dataset.p];});});
+function applyPhotos(){photoEls.forEach(el=>showPhoto(el,S.photos[el.dataset.p]));}
+
+function renderShots(){
+  document.querySelectorAll('.xshot').forEach(n=>n.remove());
+  const add=$('addShot');
+  S.shots.forEach((s,idx)=>{
+    const fig=document.createElement('figure');fig.className='shot xshot';
+    const f=document.createElement('div');f.className='f';f.dataset.bg='linear-gradient(160deg,#25485F,#4D8C9C 50%,#E7A36B)';
+    const lab=document.createElement('span');lab.textContent='FRAME '+String(photoEls.filter(p=>p.closest('.shot')).length+idx+1).padStart(2,'0');f.append(lab);
+    showPhoto(f,s.id);
+    addTools(f,id=>{s.id=id;},()=>{S.shots.splice(idx,1);renderShots();});
+    const cap=document.createElement('figcaption');
+    const b=document.createElement('b');b.textContent=s.cap||(editing?'Caption':'');
+    const m=document.createElement('span');m.className='mono';m.textContent=s.place||(editing?'Place':'');
+    if(editing){[b,m].forEach(x=>{x.contentEditable='true';x.style.outline='1px dashed var(--orange)';});}
+    b.addEventListener('input',()=>{s.cap=b.textContent.trim();});m.addEventListener('input',()=>{s.place=m.textContent.trim();});
+    cap.append(b,m);fig.append(f,cap);add.before(fig);
+  });
+}
+$('addShot').addEventListener('click',()=>pickPhoto(id=>{S.shots.push({id,cap:'',place:''});renderShots();}));
+
+const today=()=>new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+function renderPosts(){
+  const box=$('posts');box.textContent='';
+  if(!S.posts.length){const p=document.createElement('p');p.className='empty';p.textContent=editing?'No write-ups yet. Add the first one below.':'Write-ups are on their way.';box.append(p);}
+  S.posts.forEach((po,idx)=>{
+    const a=document.createElement('article');a.className='post';
+    const side=document.createElement('div');const main=document.createElement('div');
+    if(editing){
+      const d=document.createElement('input');d.value=po.date||'';d.placeholder='Date';d.setAttribute('aria-label','Date');d.id='pd'+idx;
+      const del=document.createElement('button');del.type='button';del.textContent='Delete';del.style.marginTop='10px';
+      del.addEventListener('click',()=>{if(del.dataset.sure){S.posts.splice(idx,1);renderPosts();}else{del.dataset.sure='1';del.textContent='Click again to delete';}});
+      side.className='fields';side.append(d,del);
+      const t=document.createElement('input');t.className='t';t.value=po.title||'';t.placeholder='Title';t.setAttribute('aria-label','Title');t.id='pt'+idx;
+      const b=document.createElement('textarea');b.value=po.body||'';b.placeholder='Write here. Leave an empty line between paragraphs.';b.setAttribute('aria-label','Write-up');b.id='pb'+idx;
+      d.addEventListener('input',()=>po.date=d.value);t.addEventListener('input',()=>po.title=t.value);b.addEventListener('input',()=>po.body=b.value);
+      main.className='fields';main.append(t,b);
+    }else{
+      side.className='mono';side.textContent=po.date||'';
+      const h=document.createElement('h3');h.textContent=po.title||'Untitled';
+      const body=document.createElement('div');body.className='body';
+      (po.body||'').split(/\n\s*\n/).filter(x=>x.trim()).forEach(par=>{const p=document.createElement('p');p.textContent=par.trim();body.append(p);});
+      main.append(h,body);
+    }
+    a.append(side,main);box.append(a);
+  });
+  $('newPost').hidden=!editing;
+}
+$('newPost').addEventListener('click',()=>{S.posts.unshift({title:'',date:today(),body:''});renderPosts();$('pt0')?.focus();});
+
+function setEditing(on){
+  editing=on;document.body.classList.toggle('editing',on);
+  keyed.forEach(el=>{if(on)el.contentEditable='true';else el.removeAttribute('contenteditable');});
+  $('editBtn').hidden=on;$('saveBtn').hidden=!on;$('cancelBtn').hidden=!on;
+  renderPosts();renderShots();
+  msg(on?'Click any text to change it':'Only editors see this');
+}
+document.addEventListener('click',e=>{if(editing&&e.target.closest('[contenteditable="true"]')&&e.target.closest('a'))e.preventDefault();},true);
+document.addEventListener('keydown',e=>{
+  if(!editing||!e.target.closest('[data-k]'))return;
+  if(e.key==='Enter'){e.preventDefault();if(e.target.closest('p,blockquote'))document.execCommand('insertLineBreak');}
+});
+document.addEventListener('paste',e=>{
+  if(!editing||!e.target.closest('[data-k]'))return;
+  e.preventDefault();document.execCommand('insertText',false,(e.clipboardData||window.clipboardData).getData('text/plain'));
+});
+$('editBtn').addEventListener('click',()=>{snap=JSON.stringify(S);setEditing(true);});
+$('cancelBtn').addEventListener('click',()=>{S=JSON.parse(snap);applyText();applyPhotos();setEditing(false);});
+$('saveBtn').addEventListener('click',async()=>{
+  keyed.forEach(el=>{const k=el.dataset.k,now=clean(el.innerHTML);if(now!==clean(orig[k]))S.text[k]=now;else delete S.text[k];});
+  S.posts=S.posts.filter(p=>(p.title||'').trim()||(p.body||'').trim());
+  const json=JSON.stringify(S).replace(/</g,'\\u003c');
+  const open='<script type="application/json" id="site-state">';
+  const i=PRISTINE.indexOf(open),j=PRISTINE.indexOf('<\/script>',i);
+  if(i<0||j<0){msg('Could not save: page source not found.');return;}
+  const body=PRISTINE.slice(0,i+open.length)+json+PRISTINE.slice(j);
+  const html='<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>'+RESET+'</style></head><body>'+body+'</body></html>';
+  $('saveBtn').disabled=true;msg('Saving…');
+  try{await ART.publish(html);msg('Saved. Reloading…');}
+  catch(err){
+    const c=err&&err.code;$('saveBtn').disabled=false;
+    if(c==='conflict')msg('A newer version was saved elsewhere. Reloading it.');
+    else if(c==='not_writer'||c==='not_granted'){msg('This view is read-only.');$('editbar').hidden=true;}
+    else if(c==='rate_limited')msg('Saving too often. Wait a minute and try again.');
+    else msg('Could not save ('+(c||'error')+'). Try again.');
+  }
+});
+applyText();applyPhotos();renderPosts();renderShots();
+(async()=>{
+  if(!window.claude||!window.claude.use)return;
+  const [art,user]=await Promise.all([claude.use('artifact'),claude.use('user')]);
+  if(!art||!user)return;
+  let can=false;try{can=await user.canEdit();}catch(e){}
+  if(!can)return;
+  ART=art;assets=await claude.use('assets');$('editbar').hidden=false;
+})();
+
+/* ---------- one loop, only the visible view ---------- */
+function loop(t){
+  if(current==='home')heroFrame(t);
+  else if(current==='work')mofFrame();
+  else if(current==='playground')bubFrame();
+  else if(current==='music')lissFrame();
+  if(!reduce)requestAnimationFrame(loop);
+}
+route();
+if(reduce){heroFrame(0);mofFrame();lissFrame();for(let i=0;i<120;i++)bubFrame();}
+else requestAnimationFrame(loop);
+})();
+</script>
+</body></html>
